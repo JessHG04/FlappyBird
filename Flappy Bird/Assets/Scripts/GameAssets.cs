@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameAssets : MonoBehaviour{
     #region Public Variables
-    public Sprite pipeHeadSprite;
+    public Transform ptPipe;
 
     #endregion
 
@@ -13,11 +13,14 @@ public class GameAssets : MonoBehaviour{
 
     #endregion
     
-    public static GameAssets GetInstance(){
-        return instance;
-    }
-
+    #region Unity Methods
     private void Awake() {
         instance = this;
     }
+
+    public static GameAssets GetInstance(){
+        return instance;
+    }
+    
+    #endregion
 }
