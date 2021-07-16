@@ -15,21 +15,40 @@ public class LevelManager : MonoBehaviour{
 
     #region Unity Methods
     private void Start() {
-        CreatePipe(10.0f, 10.0f);
-        CreatePipe(20.0f, 30.0f);
-        CreatePipe(30.0f, 40.0f);
+        //CreatePipe(20.0f, 50.0f, true);
+        //CreatePipe(20.0f, 50.0f, false);
+        CreateGapPipes(20.0f, 50.0f, 20f);
+        CreateGapPipes(30.0f, 25.0f, 20f);
     }
 
     #endregion
 
     #region Utility Methods
-    private void CreatePipe(float positionX, float height){
+
+    private void CreateGapPipes(float positionX, float gapY, float gapSize){
+        CreatePipe(positionX, gapY - gapSize * 0.5f, true);
+        CreatePipe(positionX, CameraOrtoSize * 2.0f - gapY - gapSize * 0.5f, false);
+    }
+
+    private void CreatePipe(float positionX, float height, bool createBottom){
+        float pipePositionY, pipeHeadPositionY;
+
+        if(createBottom){
+            pipePositionY = -CameraOrtoSize;
+            pipeHeadPositionY = (-CameraOrtoSize) + height - (PipeHeadHeight * 0.5f);
+        }else{
+            pipePositionY = +CameraOrtoSize;
+            pipeHeadPositionY = (+CameraOrtoSize) - height + (PipeHeadHeight * 0.5f);
+        }
+        
         //Complete pipe position X
         var pipe = Instantiate(GameAssets.GetInstance().pipeGO.GetComponent<Pipe>());
-        pipe.getPipeTransform().position = new Vector3(positionX, (-CameraOrtoSize));
+        pipe.getPipeTransform().position = new Vector3(positionX, pipePositionY);
+        
+        if(!createBottom) pipe.getPipeTransform().localScale = new Vector3(1, -1, 1);
         
         //Height of pipe
-        pipe.getHead().position =  new Vector3(positionX, ((-CameraOrtoSize) + height - PipeHeadHeight * 0.5f));
+        pipe.getHead().position =  new Vector3(positionX, pipeHeadPositionY);
         pipe.getBodyRender().size =  new Vector2(PipeWidth, height);
         pipe.getBodyCollider().size = new Vector2(PipeWidth, height);
         pipe.getBodyCollider().offset = new Vector2(0f, height * 0.5f);
