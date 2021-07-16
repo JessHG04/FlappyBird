@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameAssets : MonoBehaviour{
     #region Public Variables
-    public Transform ptPipe;
+    public GameObject pipeGO;
+    //public Transform ptPipeHead;
+    //public Transform ptPipeBody;
 
     #endregion
 

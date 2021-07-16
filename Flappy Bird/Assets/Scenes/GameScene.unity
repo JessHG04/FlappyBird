@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b021200159431e4b983d5d9a350bc09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ptPipe: {fileID: 1990665263441505754, guid: 20ed7d254465cea49931175ae050fb15, type: 3}
+  pipeGO: {fileID: 8547065483628731672, guid: 2e6b11e010dd971458ccf222b3bc71f6, type: 3}
 --- !u!1 &1367389850
 GameObject:
   m_ObjectHideFlags: 0
