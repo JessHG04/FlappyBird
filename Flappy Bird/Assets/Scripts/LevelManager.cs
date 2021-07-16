@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour{
     #endregion
 
     #region Private Variables
+    private const float CameraOrtoSize = 50.0f;
     private const float PipeWidth = 7.8f;
     private const float PipeHeadHeight = 3.5f;
     #endregion
@@ -25,10 +26,10 @@ public class LevelManager : MonoBehaviour{
     private void CreatePipe(float positionX, float height){
         //Complete pipe position X
         var pipe = Instantiate(GameAssets.GetInstance().pipeGO.GetComponent<Pipe>());
-        pipe.getPipeTransform().position = new Vector3(positionX, 0f);
+        pipe.getPipeTransform().position = new Vector3(positionX, (-CameraOrtoSize));
         
         //Height of pipe
-        pipe.getHead().position =  new Vector3(positionX, height - PipeHeadHeight * 0.5f);
+        pipe.getHead().position =  new Vector3(positionX, ((-CameraOrtoSize) + height - PipeHeadHeight * 0.5f));
         pipe.getBodyRender().size =  new Vector2(PipeWidth, height);
         pipe.getBodyCollider().size = new Vector2(PipeWidth, height);
         pipe.getBodyCollider().offset = new Vector2(0f, height * 0.5f);
