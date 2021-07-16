@@ -12,6 +12,11 @@ public class GameHandler : MonoBehaviour{
     #endregion
 
     #region Unity Methods
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            Application.Quit();
+        }
+    }
 
 
     #endregion

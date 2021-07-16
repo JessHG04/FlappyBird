@@ -5,8 +5,6 @@ using UnityEngine;
 public class GameAssets : MonoBehaviour{
     #region Public Variables
     public GameObject pipeGO;
-    //public Transform ptPipeHead;
-    //public Transform ptPipeBody;
 
     #endregion
 
