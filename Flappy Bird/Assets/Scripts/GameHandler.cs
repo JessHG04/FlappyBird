@@ -12,12 +12,7 @@ public class GameHandler : MonoBehaviour{
     #endregion
 
     #region Unity Methods
-    private void Start(){
-        
-    }
-    private void Update(){
-        
-    }
+
 
     #endregion
 }
