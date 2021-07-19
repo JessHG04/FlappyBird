@@ -10,7 +10,7 @@ public class BirdMovement : MonoBehaviour{
     #endregion
 
     #region Unity Methods
-    private void Awake() {
+    private void Start() {
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 

@@ -15,15 +15,15 @@ public class LevelManager : MonoBehaviour{
     #endregion
 
     #region Private Variables
-    private List<Pipe> _pipeList;
     private const float CameraOrtoSize = 50.0f;
     private const float PipeWidth = 7.8f;
     private const float PipeHeadHeight = 3.5f;
     private const float PipeDestroyPositonX = -100.0f;
     private const float PipeSpawnPositonX = 100.0f;
-    private int PipesSpawned;
-    private float PipeSpawnTimer;
-    private float PipeSpawnTimerMax;
+    private List<Pipe> _pipeList;
+    private int _pipesSpawned;
+    private float _pipeSpawnTimer;
+    private float _pipeSpawnTimerMax;
     private float gapSize;
 
     #endregion
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour{
     #region Unity Methods
     private void Awake() {
         _pipeList = new List<Pipe>();
-        PipeSpawnTimerMax = 1.0f;
+        _pipeSpawnTimerMax = 1.0f;
         SetDifficulty(Difficulty.Easy);
     }
     
@@ -56,9 +56,9 @@ public class LevelManager : MonoBehaviour{
     }
 
     private void UpdatePipeSpawning(){
-        PipeSpawnTimer -= Time.deltaTime;
-        if(PipeSpawnTimer < 0){
-            PipeSpawnTimer += PipeSpawnTimerMax;
+        _pipeSpawnTimer -= Time.deltaTime;
+        if(_pipeSpawnTimer < 0){
+            _pipeSpawnTimer += _pipeSpawnTimerMax;
             float heightEdgeLimit = 10.0f;
             float minHeight = gapSize * 0.5f + heightEdgeLimit;
             float maxHeight = (CameraOrtoSize * 2.0f) - (gapSize * 0.5f) - heightEdgeLimit;
@@ -85,16 +85,16 @@ public class LevelManager : MonoBehaviour{
     }
 
     private Difficulty GetDifficulty(){
-        if(PipesSpawned >= 30) return Difficulty.Impossible;
-        if(PipesSpawned >= 20) return Difficulty.Hard;
-        if(PipesSpawned >= 10) return Difficulty.Medium;
+        if(_pipesSpawned >= 30) return Difficulty.Impossible;
+        if(_pipesSpawned >= 20) return Difficulty.Hard;
+        if(_pipesSpawned >= 10) return Difficulty.Medium;
         return Difficulty.Easy;
     }
 
     private void CreateGapPipes(float positionX, float gapY, float gapSize){
         CreatePipe(positionX, gapY - gapSize * 0.5f, true);
         CreatePipe(positionX, CameraOrtoSize * 2.0f - gapY - gapSize * 0.5f, false);
-        PipesSpawned++;
+        _pipesSpawned++;
         SetDifficulty(GetDifficulty());
     }
 
@@ -117,8 +117,8 @@ public class LevelManager : MonoBehaviour{
         if(!createBottom) pipe.getPipeTransform().localScale = new Vector3(1, -1, 1);
         
         // Height of pipe
-        pipe.getHead().position =  new Vector3(positionX, pipeHeadPositionY);
-        pipe.getBodyRender().size =  new Vector2(PipeWidth, height);
+        pipe.getHead().position = new Vector3(positionX, pipeHeadPositionY);
+        pipe.getBodyRender().size = new Vector2(PipeWidth, height);
         pipe.getBodyCollider().size = new Vector2(PipeWidth, height);
         pipe.getBodyCollider().offset = new Vector2(0f, height * 0.5f);
     }
