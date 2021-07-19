@@ -5,8 +5,8 @@
 Flappy Bird/[Ll]ibrary/
 Flappy Bird/[Tt]emp/
 Flappy Bird/[Oo]bj/
-#Flappy Bird/[Bb]uild/
-#Flappy Bird/[Bb]uilds/
+Flappy Bird/[Bb]uild/
+Flappy Bird/[Bb]uilds/
 Flappy Bird/[Ll]ogs/
 Flappy Bird/[Mm]emoryCaptures/
 
@@ -52,8 +52,8 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-#*.apk
-#*.unitypackage
+*.apk
+*.unitypackage
 
 # Crashlytics generated file
 crashlytics-build.properties
