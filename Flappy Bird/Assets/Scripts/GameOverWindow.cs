@@ -35,7 +35,7 @@ public class GameOverWindow : MonoBehaviour{
         Debug.Log("Share button clicked");
     }
     
-    public void QuitButtonClicked() {
-        Application.Quit();
+    public void MainMenuButtonClicked() {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }
