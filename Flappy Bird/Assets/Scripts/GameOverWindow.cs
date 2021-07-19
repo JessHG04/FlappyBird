@@ -19,15 +19,23 @@ public class GameOverWindow : MonoBehaviour{
         Show();
     }
 
-    public void RetryButtonClicked() {
-        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
-    }
-
     private void Hide(){
         gameObject.SetActive(false);
     }
 
     private void Show(){
         gameObject.SetActive(true);
+    }
+
+    public void RetryButtonClicked() {
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    }
+
+    public void ShareButtonClicked() {
+        Debug.Log("Share button clicked");
+    }
+    
+    public void QuitButtonClicked() {
+        Application.Quit();
     }
 }
