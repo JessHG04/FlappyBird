@@ -9,17 +9,17 @@ public class GameAssets : MonoBehaviour{
     #endregion
 
     #region Private Variables
-    private static GameAssets instance;
+    private static GameAssets _instance;
 
     #endregion
     
     #region Unity Methods
     private void Awake() {
-        instance = this;
+        _instance = this;
     }
 
     public static GameAssets GetInstance(){
-        return instance;
+        return _instance;
     }
     
     #endregion

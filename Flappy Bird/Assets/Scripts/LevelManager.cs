@@ -16,11 +16,14 @@ public class LevelManager : MonoBehaviour{
 
     #region Private Variables
     private const float CameraOrtoSize = 50.0f;
+    private const float BirdPositionX = 0.0f;
     private const float PipeWidth = 7.8f;
     private const float PipeHeadHeight = 3.5f;
     private const float PipeDestroyPositonX = -100.0f;
     private const float PipeSpawnPositonX = 100.0f;
+    private static LevelManager _instance;
     private List<Pipe> _pipeList;
+    private int _pipesPassedCount;
     private int _pipesSpawned;
     private float _pipeSpawnTimer;
     private float _pipeSpawnTimerMax;
@@ -29,7 +32,12 @@ public class LevelManager : MonoBehaviour{
     #endregion
 
     #region Unity Methods
+    public static LevelManager getInstance(){
+        return _instance;
+    }
+
     private void Awake() {
+        _instance = this;
         _pipeList = new List<Pipe>();
         _pipeSpawnTimerMax = 1.0f;
         SetDifficulty(Difficulty.Easy);
@@ -46,7 +54,12 @@ public class LevelManager : MonoBehaviour{
 
     private void UpdatePipeMovement(){
         for(int x = 0; x < _pipeList.Count; x++){
+            bool pipeOnRight = _pipeList[x].getPipeTransform().position.x > BirdPositionX;
             _pipeList[x].Move();
+            if(pipeOnRight && _pipeList[x].getPipeTransform().position.x <= BirdPositionX){
+                //Pipe passed bird
+                _pipesPassedCount++;
+            }
             if(_pipeList[x].getPipeTransform().position.x < PipeDestroyPositonX){
                 _pipeList[x].DestroySelf();
                 _pipeList.Remove(_pipeList[x]);
@@ -71,15 +84,19 @@ public class LevelManager : MonoBehaviour{
         switch(difficulty){
             case Difficulty.Easy:
                 gapSize = 50.0f;
+                _pipeSpawnTimerMax = 1.2f;
                 break;
             case Difficulty.Medium:
                 gapSize = 40.0f;
+                _pipeSpawnTimerMax = 1.1f;
                 break;
             case Difficulty.Hard:
                 gapSize = 30.0f;
+                _pipeSpawnTimerMax = 1.0f;
                 break;
             case Difficulty.Impossible:
                 gapSize = 20.0f;
+                _pipeSpawnTimerMax = 0.9f;
                 break;
         }
     }
@@ -121,6 +138,14 @@ public class LevelManager : MonoBehaviour{
         pipe.getBodyRender().size = new Vector2(PipeWidth, height);
         pipe.getBodyCollider().size = new Vector2(PipeWidth, height);
         pipe.getBodyCollider().offset = new Vector2(0f, height * 0.5f);
+    }
+
+    public int GetPipesSpawned(){
+        return _pipesSpawned;
+    }
+
+    public int GetPipesPassed(){
+        return _pipesPassedCount;
     }
 
     #endregion
