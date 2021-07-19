@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class GameAssets : MonoBehaviour{
     #region Public Variables
     public GameObject pipeGO;
+    public SoundAudioClip[] soundAudioClips;
 
     #endregion
 
@@ -13,7 +15,6 @@ public class GameAssets : MonoBehaviour{
 
     #endregion
     
-    #region Unity Methods
     private void Awake() {
         _instance = this;
     }
@@ -22,5 +23,9 @@ public class GameAssets : MonoBehaviour{
         return _instance;
     }
     
-    #endregion
+    [Serializable]
+    public class SoundAudioClip{
+        public SoundManager.Sound sound;
+        public AudioClip audioClip;
+    }
 }

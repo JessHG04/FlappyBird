@@ -57,8 +57,8 @@ public class BirdMovement : MonoBehaviour{
         
     }
     private void OnTriggerEnter2D(Collider2D collider) {
-        //Debug.Log("Collision");
         _rigidbody2D.bodyType = RigidbodyType2D.Static;
+        SoundManager.PlaySound(SoundManager.Sound.Lose);
         if(OnDie != null) OnDie(this, EventArgs.Empty);
     }
 
@@ -68,6 +68,7 @@ public class BirdMovement : MonoBehaviour{
     private void Jump(){
         if(_rigidbody2D.bodyType == RigidbodyType2D.Dynamic){
             _rigidbody2D.velocity = Vector2.up * JumpAmount;
+            SoundManager.PlaySound(SoundManager.Sound.BirdJump);
         }
     }
 

@@ -28,14 +28,17 @@ public class GameOverWindow : MonoBehaviour{
     }
 
     public void RetryButtonClicked() {
+        SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
     public void ShareButtonClicked() {
+        SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
         Debug.Log("Share button clicked");
     }
     
     public void MainMenuButtonClicked() {
+        SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }

@@ -992,6 +992,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pipeGO: {fileID: 8547065483628731672, guid: 2e6b11e010dd971458ccf222b3bc71f6, type: 3}
+  soundAudioClips:
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: 4676ac67225f1634fb69c9c900b2b770, type: 3}
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: 9015eab7bd17e6c4bb0742be3234abed, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: 4676ac67225f1634fb69c9c900b2b770, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: 83b9161dab8965046a9d765f63056629, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: fcbb12c71b0de30448e671b2dfb6e829, type: 3}
 --- !u!1 &1113741293
 GameObject:
   m_ObjectHideFlags: 0

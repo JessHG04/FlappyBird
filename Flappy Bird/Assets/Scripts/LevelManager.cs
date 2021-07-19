@@ -75,6 +75,7 @@ public class LevelManager : MonoBehaviour{
             if(pipeOnRight && _pipeList[x].getPipeTransform().position.x <= BirdPositionX){
                 //Pipe passed bird
                 _pipesPassedCount++;
+                SoundManager.PlaySound(SoundManager.Sound.Score);
             }
             if(_pipeList[x].getPipeTransform().position.x < PipeDestroyPositonX){
                 _pipeList[x].DestroySelf();
