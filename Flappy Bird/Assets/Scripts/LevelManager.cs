@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +28,14 @@ public class LevelManager : MonoBehaviour{
     private int _pipesSpawned;
     private float _pipeSpawnTimer;
     private float _pipeSpawnTimerMax;
-    private float gapSize;
+    private float _gapSize;
+    private State _gameState;
+
+    private enum State{
+        WaitingToStart,
+        Playing,
+        BirdDead
+    }
 
     #endregion
 
@@ -41,11 +49,19 @@ public class LevelManager : MonoBehaviour{
         _pipeList = new List<Pipe>();
         _pipeSpawnTimerMax = 1.0f;
         SetDifficulty(Difficulty.Easy);
+        _gameState = State.WaitingToStart;
     }
+    private void Start() {
+        BirdMovement.GetInstance().OnDie += BirdOnDied;
+        BirdMovement.GetInstance().OnStartPlaying += BirdOnStartPlaying;
+    }
+
     
     private void Update() {
-        UpdatePipeMovement();
-        UpdatePipeSpawning();
+        if(_gameState == State.Playing){
+            UpdatePipeMovement();
+            UpdatePipeSpawning();
+        }
     }
 
     #endregion
@@ -73,29 +89,29 @@ public class LevelManager : MonoBehaviour{
         if(_pipeSpawnTimer < 0){
             _pipeSpawnTimer += _pipeSpawnTimerMax;
             float heightEdgeLimit = 10.0f;
-            float minHeight = gapSize * 0.5f + heightEdgeLimit;
-            float maxHeight = (CameraOrtoSize * 2.0f) - (gapSize * 0.5f) - heightEdgeLimit;
+            float minHeight = _gapSize * 0.5f + heightEdgeLimit;
+            float maxHeight = (CameraOrtoSize * 2.0f) - (_gapSize * 0.5f) - heightEdgeLimit;
             float height = Random.Range(minHeight, maxHeight);
-            CreateGapPipes(PipeSpawnPositonX, height, gapSize);
+            CreateGapPipes(PipeSpawnPositonX, height, _gapSize);
         }
     }
 
     private void SetDifficulty(Difficulty difficulty){
         switch(difficulty){
             case Difficulty.Easy:
-                gapSize = 50.0f;
+                _gapSize = 50.0f;
                 _pipeSpawnTimerMax = 1.2f;
                 break;
             case Difficulty.Medium:
-                gapSize = 40.0f;
+                _gapSize = 40.0f;
                 _pipeSpawnTimerMax = 1.1f;
                 break;
             case Difficulty.Hard:
-                gapSize = 30.0f;
+                _gapSize = 30.0f;
                 _pipeSpawnTimerMax = 1.0f;
                 break;
             case Difficulty.Impossible:
-                gapSize = 20.0f;
+                _gapSize = 20.0f;
                 _pipeSpawnTimerMax = 0.9f;
                 break;
         }
@@ -146,6 +162,14 @@ public class LevelManager : MonoBehaviour{
 
     public int GetPipesPassed(){
         return _pipesPassedCount;
+    }
+
+    private void BirdOnDied(object sender, EventArgs e){
+        _gameState = State.BirdDead;
+    }
+
+    private void BirdOnStartPlaying(object sender, EventArgs e){
+        _gameState = State.Playing;
     }
 
     #endregion
