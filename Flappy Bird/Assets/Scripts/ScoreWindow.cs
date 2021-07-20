@@ -4,12 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreWindow : MonoBehaviour{
-    private Text scoreText;
+    private Text _scoreText;
+    private Text _highscoreText;
     private void Awake() {
-        scoreText = transform.Find("ScoreText").GetComponent<Text>();        
+        _scoreText = transform.Find("ScoreText").GetComponent<Text>();
+        _highscoreText = transform.Find("HighscoreText").GetComponent<Text>();
+    }
+
+    private void Start() {
+        _highscoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore").ToString();
     }
 
     private void Update() {
-        scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2.0f).ToString();
+        _scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2).ToString();
     }
 }
