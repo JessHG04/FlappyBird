@@ -16,7 +16,6 @@ public class Ground : MonoBehaviour{
 
     #region Getters
     public Transform getGroundTransform() => groundTransform;
-    public SpriteRenderer getGroundRender() => groundSpriteRenderer;
     public float getGroundWidth() => groundSpriteRenderer.size.x;
     public float getPositionY() => transform.position.y;
 

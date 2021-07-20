@@ -17,11 +17,7 @@ public class ScoreWindow : MonoBehaviour{
         BirdMovement.GetInstance().OnStartPlaying += BirdOnStartPlaying;
         _highscoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore").ToString();
     }
-    private void OnDestroy() {
-        BirdMovement.GetInstance().OnDie -= BirdOnDie;
-        BirdMovement.GetInstance().OnStartPlaying -= BirdOnStartPlaying;
-    }
-
+    
     private void Update() {
         _scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2).ToString();
     }

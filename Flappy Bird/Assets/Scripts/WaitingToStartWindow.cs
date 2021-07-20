@@ -8,10 +8,6 @@ public class WaitingToStartWindow : MonoBehaviour{
         BirdMovement.GetInstance().OnStartPlaying += BirdOnStartPlaying;
     }
 
-    private void OnDestroy() {
-        BirdMovement.GetInstance().OnStartPlaying -= BirdOnStartPlaying;
-    }
-
     private void BirdOnStartPlaying(object sender, EventArgs e) {
         Hide();
     }

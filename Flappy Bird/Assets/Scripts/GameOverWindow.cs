@@ -16,10 +16,6 @@ public class GameOverWindow : MonoBehaviour{
         Hide();
     }
 
-    private void OnDestroy() {
-        BirdMovement.GetInstance().OnDie -= BirdOnDied;
-    }
-
     private void BirdOnDied(object sender, EventArgs e){
         _scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2.0f).ToString();
         if((LevelManager.getInstance().GetPipesPassed() / 2.0f) >= GameHandler.GetInstance().GetHighscore()){
