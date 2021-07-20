@@ -22,8 +22,10 @@ public class LevelManager : MonoBehaviour{
     private const float PipeHeadHeight = 3.5f;
     private const float PipeDestroyPositonX = -100.0f;
     private const float PipeSpawnPositonX = 100.0f;
+    private const float GroundDestroyPositonX = -200.0f;
     private static LevelManager _instance;
     private List<Pipe> _pipeList;
+    private List<Ground> _groundList;
     private int _pipesPassedCount;
     private int _pipesSpawned;
     private float _pipeSpawnTimer;
@@ -47,6 +49,8 @@ public class LevelManager : MonoBehaviour{
     private void Awake() {
         _instance = this;
         _pipeList = new List<Pipe>();
+        _groundList = new List<Ground>();
+        SpawnInitialsGrounds();
         _pipeSpawnTimerMax = 1.0f;
         SetDifficulty(Difficulty.Easy);
         _gameState = State.WaitingToStart;
@@ -61,6 +65,7 @@ public class LevelManager : MonoBehaviour{
         if(_gameState == State.Playing){
             UpdatePipeMovement();
             UpdatePipeSpawning();
+            UpdateGround();
         }
     }
 
@@ -80,7 +85,7 @@ public class LevelManager : MonoBehaviour{
             if(_pipeList[x].getPipeTransform().position.x < PipeDestroyPositonX){
                 _pipeList[x].DestroySelf();
                 _pipeList.Remove(_pipeList[x]);
-                x--; // Decrease x bc u remove an item during for execution
+                x--; // Decrease x because u remove an item during for execution
             }
         }
     }
@@ -97,31 +102,59 @@ public class LevelManager : MonoBehaviour{
         }
     }
 
+    private void SpawnInitialsGrounds(){
+        Ground ground;
+        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>());
+        _groundList.Add(ground);
+        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth(), ground.getPositionY(), 0.0f), Quaternion.identity);
+        _groundList.Add(ground);
+        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth() * 2.0f, ground.getPositionY(), 0.0f), Quaternion.identity);
+        _groundList.Add(ground);
+    }
+
+    private void UpdateGround(){
+        for(int x = 0; x < _groundList.Count; x++){
+            _groundList[x].Move();
+
+            if(_groundList[x].getGroundTransform().position.x < GroundDestroyPositonX){         // Ground is out of the screen
+                float rightMostPositionX = CameraOrtoSize * 2.0f;                               // The right most position of the game screen
+                for(int y = 0; y < _groundList.Count; y++){
+                    if(_groundList[y].getGroundTransform().position.x > rightMostPositionX){
+                        rightMostPositionX = _groundList[y].getGroundTransform().position.x;
+                    }
+                }
+                //Move the ground to the right most position
+                float groundWithHalf = _groundList[x].getGroundWidth() * 0.5f;
+                _groundList[x].getGroundTransform().position = new Vector3(rightMostPositionX + groundWithHalf, _groundList[x].getGroundTransform().position.y, 0.0f);
+            }
+        }
+    }
+
     private void SetDifficulty(Difficulty difficulty){
         switch(difficulty){
             case Difficulty.Easy:
                 _gapSize = 50.0f;
-                _pipeSpawnTimerMax = 1.2f;
-                break;
-            case Difficulty.Medium:
-                _gapSize = 40.0f;
                 _pipeSpawnTimerMax = 1.1f;
                 break;
-            case Difficulty.Hard:
-                _gapSize = 30.0f;
+            case Difficulty.Medium:
+                _gapSize = 35.0f;
                 _pipeSpawnTimerMax = 1.0f;
                 break;
-            case Difficulty.Impossible:
+            case Difficulty.Hard:
                 _gapSize = 20.0f;
                 _pipeSpawnTimerMax = 0.9f;
+                break;
+            case Difficulty.Impossible:
+                _gapSize = 10.0f;
+                _pipeSpawnTimerMax = 0.8f;
                 break;
         }
     }
 
     private Difficulty GetDifficulty(){
-        if(_pipesSpawned >= 30) return Difficulty.Impossible;
-        if(_pipesSpawned >= 20) return Difficulty.Hard;
-        if(_pipesSpawned >= 10) return Difficulty.Medium;
+        if(_pipesSpawned >= 60) return Difficulty.Impossible;
+        if(_pipesSpawned >= 40) return Difficulty.Hard;
+        if(_pipesSpawned >= 20) return Difficulty.Medium;
         return Difficulty.Easy;
     }
 

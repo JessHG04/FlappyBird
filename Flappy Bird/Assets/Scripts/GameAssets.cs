@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GameAssets : MonoBehaviour{
     #region Public Variables
-    public GameObject pipeGO;
+    public GameObject pipeGO; // The pipe prefab
+    public GameObject groundGO; // The ground prefab
     public SoundAudioClip[] soundAudioClips;
 
     #endregion
