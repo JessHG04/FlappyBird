@@ -7,9 +7,6 @@ public class Ground : MonoBehaviour{
     public Transform groundTransform;
     public SpriteRenderer groundSpriteRenderer;
 
-
-    //public BoxCollider2D groundCollider;
-
     #endregion
 
     #region Private Variables
@@ -21,13 +18,8 @@ public class Ground : MonoBehaviour{
     public Transform getGroundTransform() => groundTransform;
     public SpriteRenderer getGroundRender() => groundSpriteRenderer;
     public float getGroundWidth() => groundSpriteRenderer.size.x;
-
-    public float getGroundHeight() => groundSpriteRenderer.size.y;
-
     public float getPositionY() => transform.position.y;
 
-    public float getPositionX() => transform.position.x;
-    //public BoxCollider2D getGroundCollider() => groundColider;
 
     #endregion
 

@@ -7,6 +7,7 @@ public class GameAssets : MonoBehaviour{
     #region Public Variables
     public GameObject pipeGO; // The pipe prefab
     public GameObject groundGO; // The ground prefab
+    public GameObject cloudGO; // The cloud prefab
     public SoundAudioClip[] soundAudioClips;
 
     #endregion

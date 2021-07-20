@@ -23,13 +23,18 @@ public class LevelManager : MonoBehaviour{
     private const float PipeDestroyPositonX = -100.0f;
     private const float PipeSpawnPositonX = 100.0f;
     private const float GroundDestroyPositonX = -200.0f;
+    private const float CloudSpawnPositonX = 160.0f;
+    private const float CloudDestroyPositonX = -160.0f;
     private static LevelManager _instance;
     private List<Pipe> _pipeList;
     private List<Ground> _groundList;
+    private List<Cloud> _cloudList;
     private int _pipesPassedCount;
     private int _pipesSpawned;
     private float _pipeSpawnTimer;
     private float _pipeSpawnTimerMax;
+    private float _cloudSpawnTimer;
+    private float _cloudSpawnTimerMax;
     private float _gapSize;
     private State _gameState;
 
@@ -48,9 +53,12 @@ public class LevelManager : MonoBehaviour{
 
     private void Awake() {
         _instance = this;
-        _pipeList = new List<Pipe>();
         _groundList = new List<Ground>();
         SpawnInitialsGrounds();
+        _cloudList = new List<Cloud>();
+        SpawnInitialClouds();
+        _cloudSpawnTimerMax = 6.0f;
+        _pipeList = new List<Pipe>();
         _pipeSpawnTimerMax = 1.0f;
         SetDifficulty(Difficulty.Easy);
         _gameState = State.WaitingToStart;
@@ -66,12 +74,28 @@ public class LevelManager : MonoBehaviour{
             UpdatePipeMovement();
             UpdatePipeSpawning();
             UpdateGround();
+            UpdateClouds();
         }
     }
 
     #endregion
 
     #region Utility Methods
+    
+    private void SpawnInitialsGrounds(){
+        Ground ground;
+        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>());
+        _groundList.Add(ground);
+        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth(), ground.getPositionY(), 0.0f), Quaternion.identity);
+        _groundList.Add(ground);
+        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth() * 2.0f, ground.getPositionY(), 0.0f), Quaternion.identity);
+        _groundList.Add(ground);
+    }
+
+    private void SpawnInitialClouds(){
+        Cloud cloud = Instantiate(GameAssets.GetInstance().cloudGO.GetComponent<Cloud>());
+        _cloudList.Add(cloud);
+    }
 
     private void UpdatePipeMovement(){
         for(int x = 0; x < _pipeList.Count; x++){
@@ -102,15 +126,7 @@ public class LevelManager : MonoBehaviour{
         }
     }
 
-    private void SpawnInitialsGrounds(){
-        Ground ground;
-        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>());
-        _groundList.Add(ground);
-        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth(), ground.getPositionY(), 0.0f), Quaternion.identity);
-        _groundList.Add(ground);
-        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth() * 2.0f, ground.getPositionY(), 0.0f), Quaternion.identity);
-        _groundList.Add(ground);
-    }
+    
 
     private void UpdateGround(){
         for(int x = 0; x < _groundList.Count; x++){
@@ -130,6 +146,23 @@ public class LevelManager : MonoBehaviour{
         }
     }
 
+    private void UpdateClouds(){
+        _cloudSpawnTimer -= Time.deltaTime;
+        if(_cloudSpawnTimer < 0){
+            _cloudSpawnTimer += _cloudSpawnTimerMax;
+            Cloud cloud = Instantiate(GameAssets.GetInstance().cloudGO.GetComponent<Cloud>(), new Vector3 (CloudSpawnPositonX, _cloudList[0].getPositionY(), 0.0f), Quaternion.identity);
+            _cloudList.Add(cloud);
+        }
+
+        for(int x = 0; x < _cloudList.Count; x++){
+            _cloudList[x].Move();
+            if(_cloudList[x].getCloudTransform().position.x < CloudDestroyPositonX){
+                _cloudList[x].DestroySelf();
+                _cloudList.Remove(_cloudList[x]);
+                x--; // Decrease x because u remove an item during for execution
+            }
+        }
+    }
     private void SetDifficulty(Difficulty difficulty){
         switch(difficulty){
             case Difficulty.Easy:
