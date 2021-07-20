@@ -22,7 +22,7 @@ public class Cloud : MonoBehaviour{
 
     #region Public Methods
     public void Move(){
-        cloudTransform.position += new Vector3(-1, 0, 0) * cloudMoveSpeed * Time.deltaTime * 0.5f;
+        cloudTransform.position += new Vector3(-1, 0, 0) * cloudMoveSpeed * Time.deltaTime * 0.75f;
     }
 
     public void DestroySelf(){

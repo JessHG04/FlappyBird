@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,31 @@ public class ScoreWindow : MonoBehaviour{
     }
 
     private void Start() {
+        BirdMovement.GetInstance().OnDie += BirdOnDie;
+        BirdMovement.GetInstance().OnStartPlaying += BirdOnStartPlaying;
         _highscoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore").ToString();
+    }
+    private void OnDestroy() {
+        BirdMovement.GetInstance().OnDie -= BirdOnDie;
+        BirdMovement.GetInstance().OnStartPlaying -= BirdOnStartPlaying;
     }
 
     private void Update() {
         _scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2).ToString();
+    }
+
+    private void BirdOnDie(object sender, EventArgs e) {
+        Hide();
+    }
+
+    private void BirdOnStartPlaying(object sender, EventArgs e) {
+        Show();
+    }
+    public void Hide(){
+        gameObject.SetActive(false);
+    }
+
+    public void Show(){
+        gameObject.SetActive(true);
     }
 }

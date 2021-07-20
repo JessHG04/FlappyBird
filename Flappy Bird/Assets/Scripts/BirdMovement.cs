@@ -13,7 +13,7 @@ public class BirdMovement : MonoBehaviour{
     #region Private Variables
     private static BirdMovement _instance;
     private Rigidbody2D _rigidbody2D;
-    private const float JumpAmount = 100.0f;
+    private const float JumpAmount = 80.0f;
 
     private State _birdState;
     private enum State{
@@ -49,6 +49,7 @@ public class BirdMovement : MonoBehaviour{
                 if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
                     Jump();
                 }
+                transform.eulerAngles = new Vector3(0, 0, _rigidbody2D.velocity.y * 0.4f);
                 break;
             case State.Dead:
                 break;

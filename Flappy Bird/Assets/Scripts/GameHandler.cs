@@ -23,6 +23,9 @@ public class GameHandler : MonoBehaviour{
         //PlayerPrefs.Save();
         BirdMovement.GetInstance().OnDie += BirdOnDied;
     }
+    private void OnDisable() {
+        BirdMovement.GetInstance().OnDie -= BirdOnDied;
+    }
 
     public static GameHandler GetInstance(){
         return _instance;

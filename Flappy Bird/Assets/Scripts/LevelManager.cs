@@ -68,6 +68,10 @@ public class LevelManager : MonoBehaviour{
         BirdMovement.GetInstance().OnStartPlaying += BirdOnStartPlaying;
     }
 
+    private void OnDisable() {
+        BirdMovement.GetInstance().OnDie -= BirdOnDied;
+        BirdMovement.GetInstance().OnStartPlaying -= BirdOnStartPlaying;
+    }
     
     private void Update() {
         if(_gameState == State.Playing){
