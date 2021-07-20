@@ -7,15 +7,23 @@ using UnityEngine.UI;
 
 public class GameOverWindow : MonoBehaviour{
     private Text _scoreText;
+    private Text _highscoreText;
 
     private void Start(){
         BirdMovement.GetInstance().OnDie += BirdOnDied;
         _scoreText = transform.Find("ScoreText").GetComponent<Text>();
+        _highscoreText = transform.Find("HighscoreText").GetComponent<Text>();
         Hide();
     }
 
     private void BirdOnDied(object sender, EventArgs e){
         _scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2.0f).ToString();
+        if((LevelManager.getInstance().GetPipesPassed() / 2.0f) >= GameHandler.GetInstance().GetHighscore()){
+            _highscoreText.text = "NEW HIGHSCORE!";
+        }else{
+            _highscoreText.text = "Highscore: " + GameHandler.GetInstance().GetHighscore().ToString();
+        }
+
         Show();
     }
 

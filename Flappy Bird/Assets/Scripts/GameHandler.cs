@@ -10,14 +10,22 @@ public class GameHandler : MonoBehaviour{
 
     #region Private Variables
 
+    private static GameHandler _instance;
+
     #endregion
 
     #region Unity Methods
-    
+    private void Awake() {
+        _instance = this;
+    }
     private void Start() {
         //PlayerPrefs.SetInt("Highscore", 0);
         //PlayerPrefs.Save();
         BirdMovement.GetInstance().OnDie += BirdOnDied;
+    }
+
+    public static GameHandler GetInstance(){
+        return _instance;
     }
 
     private void Update() {
