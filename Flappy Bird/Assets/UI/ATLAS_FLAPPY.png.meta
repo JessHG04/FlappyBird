@@ -3,9 +3,6 @@ guid: f0c620b6ddae12841a8523bf26c756f3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5625705553899923999
-    second: ATLAS_FLAPPY_17
-  - first:
       213: 6595853742941764750
     second: ATLAS_FLAPPY_0
   - first:
@@ -214,10 +211,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_2
       rect:
         serializedVersion: 2
-        x: 225
-        y: 1927
-        width: 237
-        height: 52
+        x: 539
+        y: 1949
+        width: 75
+        height: 70
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,10 +232,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_3
       rect:
         serializedVersion: 2
-        x: 539
-        y: 1949
-        width: 75
-        height: 70
+        x: 661
+        y: 1943
+        width: 87
+        height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,10 +253,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_4
       rect:
         serializedVersion: 2
-        x: 661
-        y: 1943
-        width: 87
-        height: 82
+        x: 802
+        y: 1952
+        width: 61
+        height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,10 +274,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_5
       rect:
         serializedVersion: 2
-        x: 802
-        y: 1952
-        width: 61
-        height: 62
+        x: 902
+        y: 1927
+        width: 115
+        height: 114
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -298,9 +295,9 @@ TextureImporter:
       name: ATLAS_FLAPPY_6
       rect:
         serializedVersion: 2
-        x: 902
+        x: 1031
         y: 1927
-        width: 115
+        width: 114
         height: 114
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -319,10 +316,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_7
       rect:
         serializedVersion: 2
-        x: 1031
-        y: 1927
-        width: 114
-        height: 114
+        x: 1165
+        y: 1940
+        width: 107
+        height: 92
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -340,12 +337,12 @@ TextureImporter:
       name: ATLAS_FLAPPY_8
       rect:
         serializedVersion: 2
-        x: 1165
-        y: 1940
-        width: 107
-        height: 92
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1408
+        y: 1979
+        width: 129
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -361,12 +358,12 @@ TextureImporter:
       name: ATLAS_FLAPPY_9
       rect:
         serializedVersion: 2
-        x: 1408
-        y: 1919
-        width: 129
-        height: 129
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 225
+        y: 1927
+        width: 237
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -467,9 +464,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 1552
-        width: 1921
-        height: 240
+        y: 1661
+        width: 1920
+        height: 131
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -487,10 +484,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_15
       rect:
         serializedVersion: 2
-        x: 80
-        y: 1187
-        width: 1888
-        height: 222
+        x: 64
+        y: 1311
+        width: 1920
+        height: 225
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -509,7 +506,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 767
+        y: 895
         width: 792
         height: 385
       alignment: 0
@@ -521,27 +518,6 @@ TextureImporter:
       bones: []
       spriteID: c6faa2a9c0468be40800000000000000
       internalID: 5672393735962013548
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ATLAS_FLAPPY_17
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 1409
-        width: 1888
-        height: 127
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e55ad0ea9a7de1b0800000000000000
-      internalID: -5625705553899923999
       vertices: []
       indices: 
       edges: []

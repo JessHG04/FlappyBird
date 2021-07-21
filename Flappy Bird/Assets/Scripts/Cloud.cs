@@ -15,18 +15,17 @@ public class Cloud : MonoBehaviour{
 
     #endregion
 
-    #region Getters
-    public Transform getTransform() => cloudTransform;
-    public float getWidth() => cloudSpriteRenderer.size.x;
-    public float getPositionY() => transform.position.y;
-
-    #endregion
     private void Start() {
         if(isBackCloud){
             _cloudMoveSpeed = 20.0f;
         }
     }
+
     #region Public Methods
+    public Transform getTransform() => cloudTransform;
+    public float getWidth() => cloudSpriteRenderer.size.x;
+    public float getPositionY() => transform.position.y;
+
     public void Move(){
         cloudTransform.position += new Vector3(-1, 0, 0) * _cloudMoveSpeed * Time.deltaTime;
     }
