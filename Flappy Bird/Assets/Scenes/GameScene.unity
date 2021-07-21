@@ -818,6 +818,7 @@ GameObject:
   m_Component:
   - component: {fileID: 774821577}
   - component: {fileID: 774821578}
+  - component: {fileID: 774821579}
   m_Layer: 0
   m_Name: GameOverWindow
   m_TagString: Untagged
@@ -863,6 +864,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56342fb486a7d2a408879072cce25837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!111 &774821579
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774821576}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: da661673233ad364d94f23bc603ca550, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: da661673233ad364d94f23bc603ca550, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &849063117
 GameObject:
   m_ObjectHideFlags: 0
