@@ -1,32 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Cloud : MonoBehaviour{
     #region Public Variables
     public Transform cloudTransform;
+    public SpriteRenderer cloudSpriteRenderer;
+    public bool isBackCloud;
 
     #endregion
 
     #region Private Variables
-    private const float cloudMoveSpeed = 30.0f;
+    private float _cloudMoveSpeed = 40.0f;
 
     #endregion
 
     #region Getters
-    public Transform getCloudTransform() => cloudTransform;
+    public Transform getTransform() => cloudTransform;
+    public float getWidth() => cloudSpriteRenderer.size.x;
     public float getPositionY() => transform.position.y;
 
     #endregion
-
+    private void Start() {
+        if(isBackCloud){
+            _cloudMoveSpeed = 20.0f;
+        }
+    }
     #region Public Methods
     public void Move(){
-        cloudTransform.position += new Vector3(-1, 0, 0) * cloudMoveSpeed * Time.deltaTime * 0.75f;
-    }
-
-    public void DestroySelf(){
-        Destroy(cloudTransform.gameObject);
+        cloudTransform.position += new Vector3(-1, 0, 0) * _cloudMoveSpeed * Time.deltaTime;
     }
 
     #endregion

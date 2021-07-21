@@ -46,14 +46,13 @@ public class GameHandler : MonoBehaviour{
         return PlayerPrefs.GetInt("Highscore");
     }
 
-    public bool SetHighscore(int score){
+    public int SetHighscore(int score){
         int oldScore = GetHighscore();
         if(score > oldScore){
             PlayerPrefs.SetInt("Highscore", score);
             PlayerPrefs.Save();
-            return true;
         }
-        return false;
+        return oldScore;
     }
 
     #endregion

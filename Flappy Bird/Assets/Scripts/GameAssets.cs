@@ -6,8 +6,9 @@ using UnityEngine;
 public class GameAssets : MonoBehaviour{
     #region Public Variables
     public GameObject pipeGO; // The pipe prefab
-    public GameObject groundGO; // The ground prefab
-    public GameObject cloudGO; // The cloud prefab
+    public GameObject frontCloudGO; // The front cloud (white cloud) prefab
+    public GameObject backCloudGO; // The back cloud (black cloud) prefab
+    //public GameObject cloudGO; // The cloud prefab
     public SoundAudioClip[] soundAudioClips;
 
     #endregion

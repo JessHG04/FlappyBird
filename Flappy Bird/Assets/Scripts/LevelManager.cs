@@ -22,19 +22,20 @@ public class LevelManager : MonoBehaviour{
     private const float PipeHeadHeight = 3.5f;
     private const float PipeDestroyPositonX = -100.0f;
     private const float PipeSpawnPositonX = 100.0f;
-    private const float GroundDestroyPositonX = -200.0f;
-    private const float CloudSpawnPositonX = 160.0f;
-    private const float CloudDestroyPositonX = -160.0f;
+    private const float CloudDestroyPositonX = -185.0f;
+    //private const float CloudSpawnPositonX = 160.0f;
+    //private const float CloudDestroyPositonX = -160.0f;
     private static LevelManager _instance;
     private List<Pipe> _pipeList;
-    private List<Ground> _groundList;
-    private List<Cloud> _cloudList;
+    private List<Cloud> _frontCloudList;
+    private List<Cloud> _backCloudList;
+    //private List<Cloud> _cloudList;
     private int _pipesPassedCount;
     private int _pipesSpawned;
     private float _pipeSpawnTimer;
     private float _pipeSpawnTimerMax;
-    private float _cloudSpawnTimer;
-    private float _cloudSpawnTimerMax;
+    //private float _cloudSpawnTimer;
+    //private float _cloudSpawnTimerMax;
     private float _gapSize;
     private State _gameState;
 
@@ -53,11 +54,12 @@ public class LevelManager : MonoBehaviour{
 
     private void Awake() {
         _instance = this;
-        _groundList = new List<Ground>();
-        SpawnInitialsGrounds();
-        _cloudList = new List<Cloud>();
-        SpawnInitialClouds();
-        _cloudSpawnTimerMax = 6.0f;
+        _frontCloudList = new List<Cloud>();
+        _backCloudList = new List<Cloud>();
+        SpawnInitialsClouds();
+        //_cloudList = new List<Cloud>();
+        //SpawnInitialClouds();
+        //_cloudSpawnTimerMax = 6.0f;
         _pipeList = new List<Pipe>();
         _pipeSpawnTimerMax = 1.0f;
         SetDifficulty(Difficulty.Easy);
@@ -72,8 +74,8 @@ public class LevelManager : MonoBehaviour{
         if(_gameState == State.Playing){
             UpdatePipeMovement();
             UpdatePipeSpawning();
-            UpdateGround();
             UpdateClouds();
+            //UpdateClouds();
         }
     }
 
@@ -81,21 +83,30 @@ public class LevelManager : MonoBehaviour{
 
     #region Utility Methods
     
-    private void SpawnInitialsGrounds(){
-        Ground ground;
-        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>());
-        _groundList.Add(ground);
-        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth(), ground.getPositionY(), 0.0f), Quaternion.identity);
-        _groundList.Add(ground);
-        ground = Instantiate(GameAssets.GetInstance().groundGO.GetComponent<Ground>(), new Vector3(ground.getGroundWidth() * 2.0f, ground.getPositionY(), 0.0f), Quaternion.identity);
-        _groundList.Add(ground);
-    }
+    private void SpawnInitialsClouds(){
+        Cloud cloud;
+        // Front clouds(white clouds)
+        cloud = Instantiate(GameAssets.GetInstance().frontCloudGO.GetComponent<Cloud>());
+        _frontCloudList.Add(cloud);
+        cloud = Instantiate(GameAssets.GetInstance().frontCloudGO.GetComponent<Cloud>(), new Vector3(cloud.getWidth(), cloud.getPositionY(), 0.0f), Quaternion.identity);
+        _frontCloudList.Add(cloud);
+        cloud = Instantiate(GameAssets.GetInstance().frontCloudGO.GetComponent<Cloud>(), new Vector3(cloud.getWidth() * 2.0f, cloud.getPositionY(), 0.0f), Quaternion.identity);
+        _frontCloudList.Add(cloud);
 
+        // Back clouds (grey clouds)
+        cloud = Instantiate(GameAssets.GetInstance().backCloudGO.GetComponent<Cloud>());
+        _backCloudList.Add(cloud);
+        cloud = Instantiate(GameAssets.GetInstance().backCloudGO.GetComponent<Cloud>(), new Vector3(cloud.getWidth(), cloud.getPositionY(), 0.0f), Quaternion.identity);
+        _backCloudList.Add(cloud);
+        cloud = Instantiate(GameAssets.GetInstance().backCloudGO.GetComponent<Cloud>(), new Vector3(cloud.getWidth() * 2.0f, cloud.getPositionY(), 0.0f), Quaternion.identity);
+        _backCloudList.Add(cloud);
+    }
+/*
     private void SpawnInitialClouds(){
         Cloud cloud = Instantiate(GameAssets.GetInstance().cloudGO.GetComponent<Cloud>());
         _cloudList.Add(cloud);
     }
-
+*/
     private void UpdatePipeMovement(){
         for(int x = 0; x < _pipeList.Count; x++){
             bool pipeOnRight = _pipeList[x].getPipeTransform().position.x > BirdPositionX;
@@ -117,7 +128,7 @@ public class LevelManager : MonoBehaviour{
         _pipeSpawnTimer -= Time.deltaTime;
         if(_pipeSpawnTimer < 0){
             _pipeSpawnTimer += _pipeSpawnTimerMax;
-            float heightEdgeLimit = 10.0f;
+            float heightEdgeLimit = 12.0f;
             float minHeight = _gapSize * 0.5f + heightEdgeLimit;
             float maxHeight = (CameraOrtoSize * 2.0f) - (_gapSize * 0.5f) - heightEdgeLimit;
             float height = Random.Range(minHeight, maxHeight);
@@ -127,24 +138,38 @@ public class LevelManager : MonoBehaviour{
 
     
 
-    private void UpdateGround(){
-        for(int x = 0; x < _groundList.Count; x++){
-            _groundList[x].Move();
+    private void UpdateClouds(){
+        for(int x = 0; x < _frontCloudList.Count; x++){
+            _frontCloudList[x].Move();
 
-            if(_groundList[x].getGroundTransform().position.x < GroundDestroyPositonX){         // Ground is out of the screen
-                float rightMostPositionX = CameraOrtoSize * 2.0f;                               // The right most position of the game screen
-                for(int y = 0; y < _groundList.Count; y++){
-                    if(_groundList[y].getGroundTransform().position.x > rightMostPositionX){
-                        rightMostPositionX = _groundList[y].getGroundTransform().position.x;
+            if(_frontCloudList[x].getTransform().position.x < CloudDestroyPositonX){                // Cloud is out of the screen
+                float rightMostPositionX = CameraOrtoSize * 2.0f;                                   // The right most position of the game screen
+                for(int y = 0; y < _frontCloudList.Count; y++){
+                    if(_frontCloudList[y].getTransform().position.x > rightMostPositionX){
+                        rightMostPositionX = _frontCloudList[y].getTransform().position.x;
                     }
                 }
                 //Move the ground to the right most position
-                float groundWithHalf = _groundList[x].getGroundWidth() * 0.5f;
-                _groundList[x].getGroundTransform().position = new Vector3(rightMostPositionX + groundWithHalf, _groundList[x].getGroundTransform().position.y, 0.0f);
+                _frontCloudList[x].getTransform().position = new Vector3(rightMostPositionX + _frontCloudList[x].getWidth(), _frontCloudList[x].getTransform().position.y, 0.0f);
+            }
+        }
+
+        for(int x = 0; x < _backCloudList.Count; x++){
+            _backCloudList[x].Move();
+
+            if(_backCloudList[x].getTransform().position.x < CloudDestroyPositonX){                // Cloud is out of the screen
+                float rightMostPositionX = CameraOrtoSize * 2.0f;                                   // The right most position of the game screen
+                for(int y = 0; y < _backCloudList.Count; y++){
+                    if(_backCloudList[y].getTransform().position.x > rightMostPositionX){
+                        rightMostPositionX = _backCloudList[y].getTransform().position.x;
+                    }
+                }
+                //Move the ground to the right most position
+                _backCloudList[x].getTransform().position = new Vector3(rightMostPositionX + _backCloudList[x].getWidth() , _backCloudList[x].getTransform().position.y, 0.0f);
             }
         }
     }
-
+/*
     private void UpdateClouds(){
         _cloudSpawnTimer -= Time.deltaTime;
         if(_cloudSpawnTimer < 0){
@@ -162,6 +187,7 @@ public class LevelManager : MonoBehaviour{
             }
         }
     }
+    */
     private void SetDifficulty(Difficulty difficulty){
         switch(difficulty){
             case Difficulty.Easy:
