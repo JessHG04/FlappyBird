@@ -6,12 +6,7 @@ using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour{
     #region Public Variables
-    public enum Difficulty{
-        Easy,
-        Medium,
-        Hard,
-        Impossible
-    }
+    public LevelDataSO levelDataSO;
 
     #endregion
 
@@ -19,7 +14,7 @@ public class LevelManager : MonoBehaviour{
     private const float CameraOrtoSize = 50.0f;
     private const float BirdPositionX = 0.0f;
     private const float PipeWidth = 7.8f;
-    private const float PipeHeadHeight = 3.5f;
+    private const float PipeHeadHeight = -2.9f;
     private const float PipeDestroyPositonX = -100.0f;
     private const float PipeSpawnPositonX = 100.0f;
     private const float CloudDestroyPositonX = -185.0f;
@@ -29,6 +24,8 @@ public class LevelManager : MonoBehaviour{
     private List<Cloud> _backCloudList;
     private int _pipesPassedCount;
     private int _pipesSpawned;
+    private int _currentLevel;
+    private int _maxLevels;
     private float _pipeSpawnTimer;
     private float _pipeSpawnTimerMax;
     private float _gapSize;
@@ -53,8 +50,9 @@ public class LevelManager : MonoBehaviour{
         _backCloudList = new List<Cloud>();
         SpawnInitialsClouds();
         _pipeList = new List<Pipe>();
-        _pipeSpawnTimerMax = 1.0f;
-        SetDifficulty(Difficulty.Easy);
+        _currentLevel = 0;
+        _maxLevels = levelDataSO.dataList.Count;
+        LoadLevelData();
         _gameState = State.WaitingToStart;
     }
     private void Start() {
@@ -118,11 +116,9 @@ public class LevelManager : MonoBehaviour{
             float minHeight = _gapSize * 0.5f + heightEdgeLimit;
             float maxHeight = (CameraOrtoSize * 2.0f) - (_gapSize * 0.5f) - heightEdgeLimit;
             float height = Random.Range(minHeight, maxHeight);
-            CreateGapPipes(PipeSpawnPositonX, height, _gapSize);
+            CreateGapPipes(PipeSpawnPositonX, height, _gapSize - PipeHeadHeight);
         }
     }
-
-    
 
     private void UpdateClouds(){
         for(int x = 0; x < _frontCloudList.Count; x++){
@@ -143,7 +139,7 @@ public class LevelManager : MonoBehaviour{
         for(int x = 0; x < _backCloudList.Count; x++){
             _backCloudList[x].Move();
 
-            if(_backCloudList[x].getTransform().position.x < CloudDestroyPositonX){                // Cloud is out of the screen
+            if(_backCloudList[x].getTransform().position.x < CloudDestroyPositonX){                 // Cloud is out of the screen
                 float rightMostPositionX = CameraOrtoSize * 2.0f;                                   // The right most position of the game screen
                 for(int y = 0; y < _backCloudList.Count; y++){
                     if(_backCloudList[y].getTransform().position.x > rightMostPositionX){
@@ -155,39 +151,28 @@ public class LevelManager : MonoBehaviour{
             }
         }
     }
-    private void SetDifficulty(Difficulty difficulty){
-        switch(difficulty){
-            case Difficulty.Easy:
-                _gapSize = 50.0f;
-                _pipeSpawnTimerMax = 1.1f;
-                break;
-            case Difficulty.Medium:
-                _gapSize = 35.0f;
-                _pipeSpawnTimerMax = 1.0f;
-                break;
-            case Difficulty.Hard:
-                _gapSize = 20.0f;
-                _pipeSpawnTimerMax = 0.9f;
-                break;
-            case Difficulty.Impossible:
-                _gapSize = 10.0f;
-                _pipeSpawnTimerMax = 0.8f;
-                break;
-        }
-    }
 
-    private Difficulty GetDifficulty(){
-        if(_pipesSpawned >= 60) return Difficulty.Impossible;
-        if(_pipesSpawned >= 40) return Difficulty.Hard;
-        if(_pipesSpawned >= 20) return Difficulty.Medium;
-        return Difficulty.Easy;
+    private void LoadLevelData(){
+        if(_currentLevel < _maxLevels){
+            _gapSize = levelDataSO.dataList[_currentLevel].gapSize;
+            _pipeSpawnTimerMax = levelDataSO.dataList[_currentLevel].pipeSpawnTimerMax;
+        }else{
+            _gapSize = levelDataSO.dataList[_maxLevels - 1].gapSize;
+            _pipeSpawnTimerMax = levelDataSO.dataList[_maxLevels - 1].pipeSpawnTimerMax;
+        }
     }
 
     private void CreateGapPipes(float positionX, float gapY, float gapSize){
         CreatePipe(positionX, gapY - gapSize * 0.5f, true);
         CreatePipe(positionX, CameraOrtoSize * 2.0f - gapY - gapSize * 0.5f, false);
         _pipesSpawned++;
-        SetDifficulty(GetDifficulty());
+
+        if(_pipesSpawned >= 2){
+            //Load next level
+            _currentLevel++;
+            LoadLevelData();
+            _pipesSpawned = 0;
+        }
     }
 
     private void CreatePipe(float positionX, float height, bool createBottom){
@@ -195,10 +180,10 @@ public class LevelManager : MonoBehaviour{
 
         if(createBottom){
             pipePositionY = -CameraOrtoSize;
-            pipeHeadPositionY = (-CameraOrtoSize) + height - (PipeHeadHeight * 0.5f) + 3.0f;
+            pipeHeadPositionY = (-CameraOrtoSize) + height - (PipeHeadHeight * 0.5f);
         }else{
             pipePositionY = +CameraOrtoSize;
-            pipeHeadPositionY = (+CameraOrtoSize) - height + (PipeHeadHeight * 0.5f) - 3.0f;
+            pipeHeadPositionY = (+CameraOrtoSize) - height + (PipeHeadHeight * 0.5f);
         }
         
         // Complete pipe position X
