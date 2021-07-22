@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class SoundManager {
     public enum Sound{
-        BackgroundMusic,
+        //BackgroundMusic,
         BirdJump,
         Score,
         Lose,

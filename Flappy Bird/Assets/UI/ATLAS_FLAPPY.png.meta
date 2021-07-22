@@ -337,10 +337,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_8
       rect:
         serializedVersion: 2
-        x: 1408
-        y: 1979
-        width: 129
-        height: 9
+        x: 1409
+        y: 1981
+        width: 127
+        height: 6
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -442,10 +442,10 @@ TextureImporter:
       name: ATLAS_FLAPPY_13
       rect:
         serializedVersion: 2
-        x: 1408
+        x: 1409
         y: 1821
-        width: 129
-        height: 65
+        width: 127
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

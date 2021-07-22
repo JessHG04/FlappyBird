@@ -2175,6 +2175,26 @@ PrefabInstance:
       propertyPath: groundTransform
       value: 
       objectReference: {fileID: 8233731297980588730, guid: f33fcb80a4419734dbccf9e831a608a6, type: 3}
+    - target: {fileID: 6373933069182993848, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
+      propertyPath: soundAudioClips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373933069182993848, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
+      propertyPath: soundAudioClips.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9015eab7bd17e6c4bb0742be3234abed, type: 3}
+    - target: {fileID: 6373933069182993848, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
+      propertyPath: soundAudioClips.Array.data[1].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4676ac67225f1634fb69c9c900b2b770, type: 3}
+    - target: {fileID: 6373933069182993848, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
+      propertyPath: soundAudioClips.Array.data[2].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 83b9161dab8965046a9d765f63056629, type: 3}
+    - target: {fileID: 6373933069182993848, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
+      propertyPath: soundAudioClips.Array.data[3].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: fcbb12c71b0de30448e671b2dfb6e829, type: 3}
     - target: {fileID: 6373933069182993849, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
       propertyPath: m_RootOrder
       value: 1

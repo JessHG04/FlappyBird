@@ -195,10 +195,10 @@ public class LevelManager : MonoBehaviour{
 
         if(createBottom){
             pipePositionY = -CameraOrtoSize;
-            pipeHeadPositionY = (-CameraOrtoSize) + height - (PipeHeadHeight * 0.5f);
+            pipeHeadPositionY = (-CameraOrtoSize) + height - (PipeHeadHeight * 0.5f) + 3.0f;
         }else{
             pipePositionY = +CameraOrtoSize;
-            pipeHeadPositionY = (+CameraOrtoSize) - height + (PipeHeadHeight * 0.5f);
+            pipeHeadPositionY = (+CameraOrtoSize) - height + (PipeHeadHeight * 0.5f) - 3.0f;
         }
         
         // Complete pipe position X
