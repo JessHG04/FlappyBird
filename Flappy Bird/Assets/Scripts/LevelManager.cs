@@ -167,7 +167,7 @@ public class LevelManager : MonoBehaviour{
         CreatePipe(positionX, CameraOrtoSize * 2.0f - gapY - gapSize * 0.5f, false);
         _pipesSpawned++;
 
-        if(_pipesSpawned >= 2){
+        if(_pipesSpawned >= levelDataSO.pipesPerLevel){
             //Load next level
             _currentLevel++;
             LoadLevelData();

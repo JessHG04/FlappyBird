@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3b66f934645bb4eb017d7c41ec163e, type: 3}
   m_Name: LevelDataSO
   m_EditorClassIdentifier: 
+  pipesPerLevel: 10
   dataList:
   - gapSize: 50
     pipeSpawnTimerMax: 1.5
+  - gapSize: 45
+    pipeSpawnTimerMax: 1.4
   - gapSize: 40
-    pipeSpawnTimerMax: 1.5
+    pipeSpawnTimerMax: 1.3
+  - gapSize: 35
+    pipeSpawnTimerMax: 1.2
+  - gapSize: 30
+    pipeSpawnTimerMax: 1.1
+  - gapSize: 25
+    pipeSpawnTimerMax: 1
+  - gapSize: 20
+    pipeSpawnTimerMax: 0.9

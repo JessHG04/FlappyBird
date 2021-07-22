@@ -4,6 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelDataSO", menuName = "Flappy Bird/LevelDataSO", order = 0)]
 public class LevelDataSO : ScriptableObject {
+    public int pipesPerLevel;
     public List<LevelData> dataList = new List<LevelData>();
 }
 
