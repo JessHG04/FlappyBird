@@ -8,7 +8,7 @@ public class GameAssets : MonoBehaviour{
     public GameObject pipeGO; // The pipe prefab
     public GameObject frontCloudGO; // The front cloud (white cloud) prefab
     public GameObject backCloudGO; // The back cloud (black cloud) prefab
-    //public GameObject cloudGO; // The cloud prefab
+    public GameObject checkGO;
     public SoundAudioClip[] soundAudioClips;
 
     #endregion

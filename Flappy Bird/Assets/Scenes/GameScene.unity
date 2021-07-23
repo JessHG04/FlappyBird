@@ -2159,6 +2159,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 621017387}
     m_Modifications:
     - target: {fileID: 6373933069182993848, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
+      propertyPath: checkGO
+      value: 
+      objectReference: {fileID: 4586398265160685893, guid: ebc23c962217d6e48b9c899c6b306c00, type: 3}
+    - target: {fileID: 6373933069182993848, guid: d8cdaf0e32b481e40bc97d417733d130, type: 3}
       propertyPath: cloudGO
       value: 
       objectReference: {fileID: 2411620814499730052, guid: c286705455edf0a4fbbeddac190febeb, type: 3}

@@ -138,7 +138,7 @@ public class LevelManager : MonoBehaviour{
             downRange = upRange;
             upRange = positionUp * 0.65f - birdHeight;
         }
-        
+
         //70% top range
         if(!passed){
             if(birdPositionY < upRange && birdPositionY > downRange){
@@ -161,6 +161,7 @@ public class LevelManager : MonoBehaviour{
         }
 
         Debug.Log(scoreMultiplier);
+        Instantiate(GameAssets.GetInstance().checkGO, new Vector3(BirdPositionX, birdPositionY, 0.0f), Quaternion.identity);
         _score += maxScore * scoreMultiplier;
     }
 

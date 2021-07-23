@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pipeGO: {fileID: 8547065483628731672, guid: 2e6b11e010dd971458ccf222b3bc71f6, type: 3}
-  groundGO: {fileID: 8547065483628731672, guid: 2e6b11e010dd971458ccf222b3bc71f6, type: 3}
-  cloudGO: {fileID: 2411620814499730052, guid: c286705455edf0a4fbbeddac190febeb, type: 3}
+  frontCloudGO: {fileID: 8234827831669114163, guid: f33fcb80a4419734dbccf9e831a608a6, type: 3}
+  backCloudGO: {fileID: 7572875041432332404, guid: 61bedb04790ac174c87cb571111847cd, type: 3}
+  checkGO: {fileID: 4586398265160685893, guid: ebc23c962217d6e48b9c899c6b306c00, type: 3}
   soundAudioClips:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 4676ac67225f1634fb69c9c900b2b770, type: 3}
