@@ -107,7 +107,6 @@ public class LevelManager : MonoBehaviour{
                 if(x%2 == 0){
                     UpdateScore(x);
                 }
-                
                 SoundManager.PlaySound(SoundManager.Sound.Score);
             }
             if(_pipeList[x].getPipeTransform().position.x < PipeDestroyPositonX){
@@ -122,14 +121,33 @@ public class LevelManager : MonoBehaviour{
         bool passed = false;
         float maxScore = 100;
         float scoreMultiplier = 0.0f;
-        float positionUp   = _pipeList[listPosition + 1].getHead().position.y + (_pipeList[listPosition + 1].getHeadHeight() /2.0f);
+        float positionUp   = _pipeList[listPosition + 1].getHead().position.y - (_pipeList[listPosition + 1].getHeadHeight() /2.0f);
         float positionDown = _pipeList[listPosition].getHead().position.y  + (_pipeList[listPosition].getHeadHeight() /2.0f);
         float center = (positionUp + positionDown) / 2.0f;
         float birdPositionY = BirdMovement.GetInstance().getPositionY();
         float birdHeight = BirdMovement.GetInstance().getHeight() / 2.0f;
         float upRange = center + birdHeight;
         float downRange = center - birdHeight;
+        int percentage = 0;
 
+        if(birdPositionY < center){
+            if(center < 0.0f){
+                percentage = (int) (((center + birdPositionY)  * 100.0f) / positionDown);
+            }else{
+                percentage = (int) (((center - birdPositionY)  * 100.0f) / positionDown);
+            }
+        }else{
+            Debug.Log("Arriba");
+        }
+
+
+
+        
+        
+        Debug.Log(center + " " + birdPositionY + " " + positionDown);
+        //Debug.Log(percentage + " " + birdPositionY  + " " + positionDown);
+
+        
         //Center range
         if(birdPositionY < upRange && birdPositionY > downRange){
             scoreMultiplier = 1.0f;
@@ -161,7 +179,9 @@ public class LevelManager : MonoBehaviour{
         }
 
         Debug.Log(scoreMultiplier);
-        Instantiate(GameAssets.GetInstance().checkGO, new Vector3(BirdPositionX, birdPositionY, 0.0f), Quaternion.identity);
+        var go = Instantiate(GameAssets.GetInstance().checkGO, new Vector3(BirdPositionX, birdPositionY, 0.0f), Quaternion.identity,_pipeList[listPosition].getPipeTransform());
+        var text = go.GetComponentInChildren<TextMesh>();
+        text.text = percentage.ToString();
         _score += maxScore * scoreMultiplier;
     }
 
