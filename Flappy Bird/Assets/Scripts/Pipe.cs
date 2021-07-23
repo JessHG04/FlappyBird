@@ -7,6 +7,7 @@ public class Pipe : MonoBehaviour{
     public Transform ownTransform;
     public Transform pipeHead;
     public SpriteRenderer pipeBodySpriteRender;
+    public SpriteRenderer pipeHeadSpriteRender;
     public BoxCollider2D pipeBodyCollider;
 
     #endregion
@@ -21,6 +22,7 @@ public class Pipe : MonoBehaviour{
     public Transform getHead() => pipeHead;
     public SpriteRenderer getBodyRender() => pipeBodySpriteRender;
     public BoxCollider2D getBodyCollider() => pipeBodyCollider;
+    public float getHeadHeight() => pipeHeadSpriteRender.size.y;
 
     #endregion
 

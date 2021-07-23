@@ -17,8 +17,8 @@ public class GameOverWindow : MonoBehaviour{
     }
 
     private void BirdOnDied(object sender, EventArgs e){
-        _scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2.0f).ToString();
-        if((LevelManager.getInstance().GetPipesPassed() / 2.0f) >= GameHandler.GetInstance().GetHighscore()){
+        _scoreText.text = "Score: " + (LevelManager.getInstance().GetScore()).ToString();
+        if((LevelManager.getInstance().GetScore()) >= GameHandler.GetInstance().GetHighscore()){
             _highscoreText.text = "NEW HIGHSCORE!";
         }else{
             _highscoreText.text = "Highscore: " + GameHandler.GetInstance().GetHighscore().ToString();

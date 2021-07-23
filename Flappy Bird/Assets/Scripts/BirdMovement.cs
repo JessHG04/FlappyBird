@@ -7,13 +7,15 @@ public class BirdMovement : MonoBehaviour{
     #region Public Variables
     public event EventHandler OnDie;
     public event EventHandler OnStartPlaying;
+    public Transform birdTransform;
+    public SpriteRenderer birdSpriteRenderer;
 
     #endregion
 
     #region Private Variables
     private static BirdMovement _instance;
     private Rigidbody2D _rigidbody2D;
-    private const float JumpAmount = 80.0f;
+    private const float JumpAmount = 70.0f;
 
     private State _birdState;
     private enum State{
@@ -62,6 +64,10 @@ public class BirdMovement : MonoBehaviour{
         SoundManager.PlaySound(SoundManager.Sound.Lose);
         if(OnDie != null) OnDie(this, EventArgs.Empty);
     }
+
+    public float getPositionY() => birdTransform.position.y;
+
+    public float getHeight() => birdSpriteRenderer.size.y;
 
     #endregion
 

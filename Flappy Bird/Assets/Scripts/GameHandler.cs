@@ -35,7 +35,7 @@ public class GameHandler : MonoBehaviour{
     }
 
     private void BirdOnDied(object sender, EventArgs e){
-        SetHighscore(LevelManager.getInstance().GetPipesPassed() / 2);
+        SetHighscore((int)LevelManager.getInstance().GetScore());
     }
 
     #endregion

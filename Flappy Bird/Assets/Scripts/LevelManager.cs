@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour{
     private List<Pipe> _pipeList;
     private List<Cloud> _frontCloudList;
     private List<Cloud> _backCloudList;
-    private int _pipesPassedCount;
+    private float _score;
     private int _pipesSpawned;
     private int _currentLevel;
     private int _maxLevels;
@@ -90,6 +90,13 @@ public class LevelManager : MonoBehaviour{
         cloud = Instantiate(GameAssets.GetInstance().backCloudGO.GetComponent<Cloud>(), new Vector3(cloud.getWidth() * 2.0f, cloud.getPositionY(), 0.0f), Quaternion.identity);
         _backCloudList.Add(cloud);
     }
+    /*
+    *  _pipeList contains all the pipes in the game
+    *  _pipeList = [pipeBottom, pipeTop, pipeBottom, pipeTop, ...]
+    *               |   PAR 1     |         |    PAR 2   |   
+    *  When X%2 = 0, the pipe is at the bottom of the screen, and his pair is x+1 pipes away
+    */
+
 
     private void UpdatePipeMovement(){
         for(int x = 0; x < _pipeList.Count; x++){
@@ -97,15 +104,64 @@ public class LevelManager : MonoBehaviour{
             _pipeList[x].Move();
             if(pipeOnRight && _pipeList[x].getPipeTransform().position.x <= BirdPositionX){
                 //Pipe passed bird
-                _pipesPassedCount++;
+                if(x%2 == 0){
+                    UpdateScore(x);
+                }
+                
                 SoundManager.PlaySound(SoundManager.Sound.Score);
             }
             if(_pipeList[x].getPipeTransform().position.x < PipeDestroyPositonX){
                 _pipeList[x].DestroySelf();
                 _pipeList.Remove(_pipeList[x]);
-                x--; // Decrease x because u remove an item during for execution
+                x--; // Decrease x because u remove an item during execution
             }
         }
+    }
+
+    private void UpdateScore(int listPosition){         //listPosition is the position of the pipe in the list
+        bool passed = false;
+        float maxScore = 100;
+        float scoreMultiplier = 0.0f;
+        float positionUp   = _pipeList[listPosition + 1].getHead().position.y + (_pipeList[listPosition + 1].getHeadHeight() /2.0f);
+        float positionDown = _pipeList[listPosition].getHead().position.y  + (_pipeList[listPosition].getHeadHeight() /2.0f);
+        float center = (positionUp + positionDown) / 2.0f;
+        float birdPositionY = BirdMovement.GetInstance().getPositionY();
+        float birdHeight = BirdMovement.GetInstance().getHeight() / 2.0f;
+        float upRange = center + birdHeight;
+        float downRange = center - birdHeight;
+
+        //Center range
+        if(birdPositionY < upRange && birdPositionY > downRange){
+            scoreMultiplier = 1.0f;
+            passed = true;
+        }else{
+            downRange = upRange;
+            upRange = positionUp * 0.65f - birdHeight;
+        }
+        
+        //70% top range
+        if(!passed){
+            if(birdPositionY < upRange && birdPositionY > downRange){
+                scoreMultiplier = 0.7f;
+                passed = true;
+            }else{
+                upRange = center - birdHeight;
+                downRange = positionDown * 0.65f + birdHeight;
+            }
+        }
+        
+        //70% bottom range
+        if(!passed){
+            if(birdPositionY < upRange && birdPositionY > downRange){
+                scoreMultiplier = 0.7f;
+            }
+            else{
+                scoreMultiplier = 0.5f;
+            }
+        }
+
+        Debug.Log(scoreMultiplier);
+        _score += maxScore * scoreMultiplier;
     }
 
     private void UpdatePipeSpawning(){
@@ -204,8 +260,8 @@ public class LevelManager : MonoBehaviour{
         return _pipesSpawned;
     }
 
-    public int GetPipesPassed(){
-        return _pipesPassedCount;
+    public float GetScore(){
+        return _score;
     }
 
     private void BirdOnDied(object sender, EventArgs e){

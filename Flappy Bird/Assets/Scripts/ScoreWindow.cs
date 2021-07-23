@@ -19,7 +19,7 @@ public class ScoreWindow : MonoBehaviour{
     }
     
     private void Update() {
-        _scoreText.text = "Score: " + (LevelManager.getInstance().GetPipesPassed() / 2).ToString();
+        _scoreText.text = "Score: " + (LevelManager.getInstance().GetScore()).ToString();
     }
 
     private void BirdOnDie(object sender, EventArgs e) {

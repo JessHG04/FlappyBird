@@ -1398,7 +1398,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 8, y: 8}
+  m_Size: {x: 9, y: 7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1452,9 +1452,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3, y: 0}
+  m_Offset: {x: -0.4, y: 0}
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 3.7
 --- !u!114 &1367389855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1467,6 +1467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce66161883f42fd4f98c43a05e8c9401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  birdTransform: {fileID: 1367389852}
+  birdSpriteRenderer: {fileID: 1367389851}
 --- !u!1 &1382525807
 GameObject:
   m_ObjectHideFlags: 0

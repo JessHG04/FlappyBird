@@ -48,6 +48,7 @@ MonoBehaviour:
   ownTransform: {fileID: 7569146239843385007}
   pipeHead: {fileID: 5778090292889240811}
   pipeBodySpriteRender: {fileID: 5122067802347048468}
+  pipeHeadSpriteRender: {fileID: 8583840703257549740}
   pipeBodyCollider: {fileID: 4669528974946959149}
 --- !u!1 &8571397771443361558
 GameObject:
