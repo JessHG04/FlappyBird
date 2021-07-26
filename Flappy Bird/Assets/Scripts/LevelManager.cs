@@ -142,7 +142,6 @@ public class LevelManager : MonoBehaviour{
             scoreMultiplier = (100.0f - percentage) / 100.0f;
         }
        
-        //Debug.Log(scoreMultiplier);
         var go = Instantiate(GameAssets.GetInstance().checkGO, new Vector3(BirdPositionX, birdPositionY, 0.0f), Quaternion.identity, _pipeList[listPosition].getPipeTransform());
         var text = go.GetComponentInChildren<TextMesh>();
         text.text = (maxScore * scoreMultiplier).ToString();
