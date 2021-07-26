@@ -117,71 +117,35 @@ public class LevelManager : MonoBehaviour{
         }
     }
 
-    private void UpdateScore(int listPosition){         //listPosition is the position of the pipe in the list
-        bool passed = false;
+
+    private void UpdateScore(int listPosition){    
+        bool isTop = false;     //listPosition is the position of the pipe in the list
         float maxScore = 100;
         float scoreMultiplier = 0.0f;
         float positionUp   = _pipeList[listPosition + 1].getHead().position.y - (_pipeList[listPosition + 1].getHeadHeight() /2.0f);
         float positionDown = _pipeList[listPosition].getHead().position.y  + (_pipeList[listPosition].getHeadHeight() /2.0f);
-        float center = (positionUp + positionDown) / 2.0f;
+        float center = positionDown + (_gapSize/2.0f);
         float birdPositionY = BirdMovement.GetInstance().getPositionY();
-        float birdHeight = BirdMovement.GetInstance().getHeight() / 2.0f;
-        float upRange = center + birdHeight;
-        float downRange = center - birdHeight;
+        float birdPosYPercentage = birdPositionY;
         int percentage = 0;
 
-        if(birdPositionY < center){
-            if(center < 0.0f){
-                percentage = (int) (((center + birdPositionY)  * 100.0f) / positionDown);
-            }else{
-                percentage = (int) (((center - birdPositionY)  * 100.0f) / positionDown);
-            }
+        if(birdPositionY > center){
+            isTop = true;
+            birdPosYPercentage = birdPositionY - (_gapSize/2.0f);
+        }
+
+        percentage = (int) ((birdPosYPercentage - center) / (positionDown - center) * 100.0f);
+
+        if(isTop){
+            scoreMultiplier = percentage / 100.0f;
         }else{
-            Debug.Log("Arriba");
+            scoreMultiplier = (100.0f - percentage) / 100.0f;
         }
-
-
-
-        
-        
-        Debug.Log(center + " " + birdPositionY + " " + positionDown);
-        //Debug.Log(percentage + " " + birdPositionY  + " " + positionDown);
-
-        
-        //Center range
-        if(birdPositionY < upRange && birdPositionY > downRange){
-            scoreMultiplier = 1.0f;
-            passed = true;
-        }else{
-            downRange = upRange;
-            upRange = positionUp * 0.65f - birdHeight;
-        }
-
-        //70% top range
-        if(!passed){
-            if(birdPositionY < upRange && birdPositionY > downRange){
-                scoreMultiplier = 0.7f;
-                passed = true;
-            }else{
-                upRange = center - birdHeight;
-                downRange = positionDown * 0.65f + birdHeight;
-            }
-        }
-        
-        //70% bottom range
-        if(!passed){
-            if(birdPositionY < upRange && birdPositionY > downRange){
-                scoreMultiplier = 0.7f;
-            }
-            else{
-                scoreMultiplier = 0.5f;
-            }
-        }
-
-        Debug.Log(scoreMultiplier);
-        var go = Instantiate(GameAssets.GetInstance().checkGO, new Vector3(BirdPositionX, birdPositionY, 0.0f), Quaternion.identity,_pipeList[listPosition].getPipeTransform());
+       
+        //Debug.Log(scoreMultiplier);
+        var go = Instantiate(GameAssets.GetInstance().checkGO, new Vector3(BirdPositionX, birdPositionY, 0.0f), Quaternion.identity, _pipeList[listPosition].getPipeTransform());
         var text = go.GetComponentInChildren<TextMesh>();
-        text.text = percentage.ToString();
+        text.text = (maxScore * scoreMultiplier).ToString();
         _score += maxScore * scoreMultiplier;
     }
 
