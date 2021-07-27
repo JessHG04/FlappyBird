@@ -4,12 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameHandler : MonoBehaviour{
-    #region Public Variables
-
-    #endregion
-
     #region Private Variables
-
     private static GameHandler _instance;
 
     #endregion
