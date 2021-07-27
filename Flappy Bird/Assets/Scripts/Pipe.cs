@@ -17,16 +17,11 @@ public class Pipe : MonoBehaviour{
 
     #endregion
 
-    #region Getters
     public Transform getPipeTransform() => ownTransform;
     public Transform getHead() => pipeHead;
     public SpriteRenderer getBodyRender() => pipeBodySpriteRender;
     public BoxCollider2D getBodyCollider() => pipeBodyCollider;
     public float getHeadHeight() => pipeHeadSpriteRender.size.y;
-
-    #endregion
-
-    #region Public Methods
 
     public void Move(){
         ownTransform.position += new Vector3(-1, 0, 0) * PipeMoveSpeed * Time.deltaTime;
@@ -35,6 +30,4 @@ public class Pipe : MonoBehaviour{
     public void DestroySelf(){
         Destroy(ownTransform.gameObject);
     }
-
-    #endregion
 }

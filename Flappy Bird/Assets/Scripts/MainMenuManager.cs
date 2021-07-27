@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour{
-
     public void PlayButtonClicked() {
         SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);

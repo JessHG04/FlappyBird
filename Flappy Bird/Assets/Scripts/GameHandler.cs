@@ -4,12 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameHandler : MonoBehaviour{
-    #region Private Variables
     private static GameHandler _instance;
 
-    #endregion
-
-    #region Unity Methods
     private void Awake() {
         _instance = this;
     }
@@ -33,10 +29,6 @@ public class GameHandler : MonoBehaviour{
         SetHighscore((int)LevelManager.getInstance().GetScore());
     }
 
-    #endregion
-
-    #region Utility Methods
-
     public int GetHighscore(){
         return PlayerPrefs.GetInt("Highscore");
     }
@@ -49,6 +41,4 @@ public class GameHandler : MonoBehaviour{
         }
         return oldScore;
     }
-
-    #endregion
 }

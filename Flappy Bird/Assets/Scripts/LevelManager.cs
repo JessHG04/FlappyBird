@@ -90,13 +90,13 @@ public class LevelManager : MonoBehaviour{
         cloud = Instantiate(GameAssets.GetInstance().backCloudGO.GetComponent<Cloud>(), new Vector3(cloud.getWidth() * 2.0f, cloud.getPositionY(), 0.0f), Quaternion.identity);
         _backCloudList.Add(cloud);
     }
+    
     /*
     *  _pipeList contains all the pipes in the game
     *  _pipeList = [pipeBottom, pipeTop, pipeBottom, pipeTop, ...]
     *               |   PAR 1     |         |    PAR 2   |   
     *  When X%2 = 0, the pipe is at the bottom of the screen, and his pair is x+1 pipes away
     */
-
 
     private void UpdatePipeMovement(){
         for(int x = 0; x < _pipeList.Count; x++){
